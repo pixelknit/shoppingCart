@@ -10,7 +10,6 @@ class Cart:
     isEmpty: bool = True
     isActive: bool = False
     id: str = field(init=False, default_factory=RandomUtils.generate_random_id)
-    items: list[Item] = field(init=False, default_factory=list)
 
     def get_all_items(self, verbose=0)->dict:
         """
@@ -69,5 +68,58 @@ class Cart:
         data = self.get_all_items()
         return len(data["Items"].items())
 
+    def add_item_to_cart(self, item: Item):
+        """
+        Adds an item to the cart and updates the database.json file.
 
+        Args:
+            item (Item): The item to add to the cart.
+        """
+        data = self.get_all_items()
+        
+        new_item = {
+            "name": item.name,
+            "type": item.type,
+            "price": item.price
+        }
+        
+        data["Items"][item.id] = new_item
+        
+        with open(self.database_path, 'w') as file:
+            json.dump(data, file, indent=4)
+        
+        self.isEmpty = False
+        self.isActive = True
+        
+        print(f"Added {item.name} to the cart.")
 
+    def remove_item_from_cart(self, query: str):
+        """
+        Removes a selected item from the cart based on a query.
+
+        Args:
+            query (str): The search query to find the item to remove.
+        """
+        data = self.get_all_items()
+        items_to_remove = []
+
+        for item_id, item_data in data["Items"].items():
+            if query.lower() in item_data["name"].lower() or query.lower() in item_data["type"].lower():
+                items_to_remove.append(item_id)
+
+        if not items_to_remove:
+            print(f"No items found matching '{query}'")
+            return
+
+        for item_id in items_to_remove:
+            item_name = data["Items"][item_id]["name"]
+            del data["Items"][item_id]
+            print(f"Removed {item_name} from the cart.")
+
+        with open(self.database_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        if not data["Items"]:
+            self.isEmpty = True
+            self.isActive = False
+            
