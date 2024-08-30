@@ -1,2 +1,2 @@
 # shoppingCart
-Shopping cart class
+Shopping cart class assignment
