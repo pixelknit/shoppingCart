@@ -19,7 +19,7 @@ class Cart:
             if verbose is set to 1, it will print all the items.
 
         Returns:
-            A hash map with all the items in the database
+            ditc: A hash map with all the items in the database
         """
         data_file = Fstream.load_json_file(self.database_path)
         try:
@@ -43,10 +43,14 @@ class Cart:
         """
         data = Fstream.load_json_file(self.database_path)
         
-        # Search for items matching the query
         matching_items = []
         for item_id, item_data in data["Items"].items():
-            item = Item(item_data["name"], item_data["type"], item_data["price"])
+            item = Item(
+            name=item_data["name"],
+            type=item_data["type"],
+            _price=item_data["price"],
+            id=item_id
+            )
             if query.lower() in item.search_string.lower():
                 matching_items.append(item)
         

@@ -6,7 +6,7 @@ class Item:
     name: str
     type: str
     _price: float = 0.0
-    id: str = field(init=False,default_factory=RandomUtils.generate_random_id)
+    id: str = field(default_factory=RandomUtils.generate_random_id)
 
     @property
     def price(self):

@@ -17,7 +17,7 @@ class Fstream:
         Args:
             path: the path for the json file to read.
         Returns:
-            Returns a hash map with the json structure.
+            dict: A hash map with the json structure.
         """
         with open(path, "rb") as data_file:
             cls.data_file = json.load(data_file)

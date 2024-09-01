@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     #get the total amount of items in the cart
     total_item_count = my_cart.get_total_item_count()
-    print(f"Total item count: {total_item_count}")
+    print(f"Total items count: {total_item_count}")
 
     print("------------------------")
 
