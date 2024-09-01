@@ -22,6 +22,9 @@ class Cart:
             ditc: A hash map with all the items in the database
         """
         data_file = Fstream.load_json_file(self.database_path)
+        if len(data_file.items()) > 0:
+            self.isEmpty = False
+            self.isActive = True
         try:
             if verbose == 1:
                 Fstream.print_json_structure(data_file)
@@ -97,9 +100,9 @@ class Cart:
         
         print(f"Added {item.name} to the cart.")
 
-    def remove_item_from_cart(self, query: str):
+    def remove_items_from_cart_by_query(self, query: str):
         """
-        Removes a selected item from the cart based on a query.
+        Removes all the instances of an item from the cart based on a query.
 
         Args:
             query (str): The search query to find the item to remove.
@@ -127,3 +130,69 @@ class Cart:
             self.isEmpty = True
             self.isActive = False
             
+    def remove_items_from_cart_by_selection(self):
+        """
+        Removes the selected item by index.
+        """
+
+        data = self.get_all_items()
+        items = []
+        i = 1
+        for item_id, item_data in data["Items"].items():
+            items.append(item_id)
+            print(f"{i}: {item_data}")
+            i += 1
+        try:
+            usr_choice = int(input("Select the item to delete by number, example: 0: ")) - 1
+        except:
+            raise ValueError("You must select a valid number!")
+
+        if usr_choice > len(items):
+            print("Item not found!")
+            return
+
+        item_to_delete = items[usr_choice]
+        item_name = data["Items"][item_to_delete]["name"]
+        del data["Items"][item_to_delete]
+        print(f"Removed {item_name} from the cart.")
+
+        with open(self.database_path, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        if not data["Items"]:
+            self.isEmpty = True
+            self.isActive = False
+
+    def get_total_price_of_items(self)->float:
+        """"
+        Returns:
+            float: the total price for all the items in the cart.
+        """
+        data = self.get_all_items()
+        total_amount = 0
+
+        for item_id, item_data in data["Items"].items():
+            total_amount += data["Items"][item_id]["price"]
+
+        return total_amount
+
+    def empty_cart(self):
+        """
+        Clear all the items in the cart.
+        """
+        data = self.get_all_items()
+        if len(data["Items"].items()) > 0:
+            data = {"Items":{}}
+
+            with open(self.database_path, 'w') as file:
+                json.dump(data, file, indent=4)
+
+            if not data["Items"]:
+                self.isEmpty = True
+                self.isActive = False
+            print("The cart is empty")
+        else:
+            print("The cart is already empty")
+
+
+    

@@ -1,0 +1,14 @@
+{
+    "Items": {
+        "BCJAYT": {
+            "name": "apple",
+            "type": "fruit",
+            "price": 2.0
+        },
+        "NHFVIV": {
+            "name": "pineapple",
+            "type": "fruit",
+            "price": 2.0
+        }
+    }
+}
