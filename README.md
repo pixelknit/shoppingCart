@@ -4,7 +4,7 @@ Shopping cart class assignment:
 Requirements: you only need pytest for running the unit test functions (run pytest on root)
 
 Usage test:
-Run main.py for an example, using the funcionality of the cart class: python3 main.py
+Run main.py for an example using the funcionality of the cart class: "python3 main.py"
 
 The file main.py has some examples using all the functionality of this application,
 like creating the main cart instance and using all the methods for searching for items,
