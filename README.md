@@ -8,7 +8,8 @@ Run main.py for an example using the funcionality of the cart class: "python3 ma
 
 The file main.py has some examples using all the functionality of this application,
 like creating the main cart instance and using all the methods for searching for items,
-adding new items, deleting items, etc.
+adding new items, deleting items, etc.  
+"setup.py" is empty, for now is just a place holder in case the creation of a package is needed.
 
 TODO:  
 -Add more functionality to the file io system to support multiple types of permanent storage.  
