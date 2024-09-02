@@ -1,4 +1,4 @@
-# shoppingCart
+# Shopping Cart
 Shopping cart class assignment:
 
 Requirements: you only need pytest for running the unit test functions (run pytest on root)
